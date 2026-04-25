@@ -30,6 +30,7 @@ def sync_to_ytmusic(csv_path="spotify_export.csv", auth_file="browser.json", pla
 
     # 3. Create or find playlist
     playlist_id = None
+    existing_video_ids = set()
     
     try:
         playlists = yt.get_library_playlists(limit=50)
@@ -37,6 +38,15 @@ def sync_to_ytmusic(csv_path="spotify_export.csv", auth_file="browser.json", pla
             if p['title'] == playlist_name:
                 playlist_id = p['playlistId']
                 console.print(f"[bold green]✔️ Found existing playlist:[/bold green] {playlist_name}")
+                
+                # Fetch existing tracks to prevent duplicates
+                console.print(f"[blue]🔍 Checking existing tracks in '{playlist_name}' for duplicates...[/blue]")
+                playlist_data = yt.get_playlist(playlist_id, limit=None)
+                for item in playlist_data.get('tracks', []):
+                    if item.get('videoId'):
+                        existing_video_ids.add(item['videoId'])
+                
+                console.print(f"📊 Found {len(existing_video_ids)} tracks already in playlist.")
                 break
         
         if not playlist_id:
@@ -47,6 +57,7 @@ def sync_to_ytmusic(csv_path="spotify_export.csv", auth_file="browser.json", pla
         return
 
     synced_ids = []
+    skipped_count = 0
     failed = []
 
     console.print(f"\n[bold cyan]🚀 Starting sync of {len(tracks)} tracks to '{playlist_name}'...[/bold cyan]")
@@ -70,10 +81,17 @@ def sync_to_ytmusic(csv_path="spotify_export.csv", auth_file="browser.json", pla
                 
                 if search_results:
                     video_id = search_results[0]['videoId']
-                    # Add to playlist
-                    yt.add_playlist_items(playlist_id, [video_id])
-                    synced_ids.append(video_id)
-                    progress.update(search_task, description=f"[green]Added:[/green] {track['name']}")
+                    
+                    # Check for duplicates
+                    if video_id in existing_video_ids:
+                        skipped_count += 1
+                        progress.update(search_task, description=f"[yellow]Skipped (exists):[/yellow] {track['name']}")
+                    else:
+                        # Add to playlist
+                        yt.add_playlist_items(playlist_id, [video_id])
+                        synced_ids.append(video_id)
+                        existing_video_ids.add(video_id) # Add to set to prevent duplicates within the same run
+                        progress.update(search_task, description=f"[green]Added:[/green] {track['name']}")
                 else:
                     failed.append({"track": track, "reason": "No results found"})
                     progress.update(search_task, description=f"[yellow]Not found:[/yellow] {track['name']}")
@@ -93,6 +111,7 @@ def sync_to_ytmusic(csv_path="spotify_export.csv", auth_file="browser.json", pla
     
     table.add_row("Total Tracks", str(len(tracks)))
     table.add_row("Successfully Synced", f"[green]{len(synced_ids)}[/green]")
+    table.add_row("Skipped (Duplicates)", f"[yellow]{skipped_count}[/yellow]")
     table.add_row("Failed / Not Found", f"[red]{len(failed)}[/red]")
     
     console.print("\n", table)

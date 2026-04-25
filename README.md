@@ -18,6 +18,7 @@ SpotiSync reads a CSV export of your Spotify library (via [Exportify](https://ex
 - 🎧 **No Spotify Premium needed** — uses a CSV export instead of the Spotify API
 - 📋 **Creates a dedicated playlist** on YouTube Music (default: *"Spotify Liked"*)
 - 🔍 **Intelligent search** — matches tracks by name + artist
+- 🛡️ **Duplicate detection** — automatically skips songs already in the playlist
 - 📊 **Rich progress bar** — real-time feedback with `rich`
 - ❌ **Failed song tracking** — saves unmatched songs to `failed_songs.json`
 - 🔄 **Retry support** — re-run only previously failed tracks with `--retry`

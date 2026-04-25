@@ -191,8 +191,8 @@ python main.py --retry
 
 ## 🔄 Re-running the Sync
 
-- The script does **not** check for duplicates. Running it twice will add songs again.
-- If you need a fresh sync, delete the playlist on YouTube Music first, then re-run.
+- **Duplicate detection is automatic.** Running the script multiple times will only add songs that aren't already in the playlist.
+- If you want a fresh sync, delete the playlist on YouTube Music first, then re-run.
 - If your cookies have expired, re-export `browser.json` (Step 2).
 
 ---
