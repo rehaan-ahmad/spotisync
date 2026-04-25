@@ -6,45 +6,24 @@
 - [x] Run `pip install -r requirements.txt`
 - [x] Create `.env` from `.env.example`
 
-## Phase 2: Spotify Auth
-- [ ] Go to developer.spotify.com/dashboard
-- [ ] Create new app
-- [ ] Copy Client ID + Client Secret → `.env`
-- [ ] Add redirect URI in app settings:
-  - Type `https://localhost:8888/callback`
-  - Press **Enter** to confirm as a tag
-  - Then click **Save**
-- [ ] Set in `.env`: `SPOTIFY_REDIRECT_URI=https://localhost:8888/callback`
-- [ ] Test auth by running spotipy with `user-library-read playlist-read-private` scope
+## Phase 2: Export Spotify Data (Manual)
+- [ ] Use [Exportify](https://watsonbox.github.io/exportify/) to export Liked Songs/Playlists to CSV
+- [ ] Save the CSV file as `spotify_export.csv` in the project root
 
 ## Phase 3: YT Music Auth
 - [ ] Run `ytmusicapi oauth`
 - [ ] Complete browser login flow
 - [ ] Confirm `oauth.json` saved in project root
 
-## Phase 4: Source Selection (`spotify_select.py`)
-- [ ] Init Spotify client
-- [ ] Fetch liked songs count via `current_user_saved_tracks(limit=1)`
-- [ ] Fetch all playlists via `current_user_playlists()`
-- [ ] Extract `name`, `id`, `track count` per playlist
-- [ ] Use `rich` to render an interactive numbered menu:
-  ```
-  What do you want to sync?
+## Phase 4: Parse Export (`parse_csv.py`)
+- [ ] Read `spotify_export.csv`
+- [ ] Extract `Track Name`, `Artist Name(s)`, `Album Name`
+- [ ] Return clean list of track objects
 
-  [0] Liked Songs (623 tracks)
-  [1] My Playlist — chill (45 tracks)
-  [2] Road Trip 2024 (88 tracks)
-  ...
-
-  Enter number:
-  ```
-- [ ] Return selected source as `{ type: "liked" | "playlist", id?, name }`
-
-## Phase 5: Fetch Tracks (`spotify.py`)
-- [ ] If type is `liked`: paginate `current_user_saved_tracks()`
-- [ ] If type is `playlist`: paginate `playlist_tracks(playlist_id)`
-- [ ] Extract `name`, `artist`, `album` per track
-- [ ] Return full list
+## Phase 5: YT Music Auth
+- [ ] Run `ytmusicapi oauth`
+- [ ] Complete browser login flow
+- [ ] Confirm `oauth.json` saved in project root
 
 ## Phase 6: Sync to YT Music (`ytmusic.py`)
 - [ ] Init YTMusic client with `oauth.json`
