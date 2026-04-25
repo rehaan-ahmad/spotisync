@@ -22,7 +22,7 @@
 - [ ] Complete browser login flow
 - [ ] Confirm `oauth.json` saved in project root
 
-## Phase 4: Source Selection (`select.py`)
+## Phase 4: Source Selection (`spotify_select.py`)
 - [ ] Init Spotify client
 - [ ] Fetch liked songs count via `current_user_saved_tracks(limit=1)`
 - [ ] Fetch all playlists via `current_user_playlists()`
