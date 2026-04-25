@@ -1,4 +1,2 @@
-spotipy
 ytmusicapi
-python-dotenv
 rich

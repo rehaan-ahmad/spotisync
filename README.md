@@ -106,8 +106,6 @@ Reads `failed_songs.json` from a previous run and attempts to sync only those tr
 | [`ytmusicapi`](https://github.com/sigma67/ytmusicapi) | Unofficial YouTube Music API |
 | [`rich`](https://github.com/Textualize/rich) | Beautiful terminal output & progress bars |
 
-> **Note:** `spotipy` and `python-dotenv` are listed in `requirements.txt` for future use but are not currently required.
-
 ---
 
 ## ⚠️ Limitations
@@ -115,7 +113,7 @@ Reads `failed_songs.json` from a previous run and attempts to sync only those tr
 - **Browser cookies expire.** If you get `401 Unauthorized` errors, you'll need to re-export your `browser.json` headers. See [USAGE.md](USAGE.md#step-2-youtube-music-authentication).
 - **Search accuracy.** YouTube Music search may occasionally return the wrong version of a song (e.g., a cover or live version). Check `failed_songs.json` for any misses.
 - **Rate limiting.** The script adds a 0.5-second delay between API calls. For very large libraries (1000+ songs), the sync may take 10+ minutes.
-- **No duplicate detection.** Running the script twice will add songs again. Clear the playlist first if you need a fresh sync.
+- **Duplicate detection is by video ID.** If YouTube Music returns a different version of a song on a later search, it may be added as a new entry.
 
 ---
 
