@@ -1,1 +1,8 @@
-/.env
+.env
+__pycache__/
+*.pyc
+oauth.json
+failed_songs.json
+.vscode/
+.idea/
+.DS_Store
