@@ -1,20 +1,20 @@
 # SpotiSync — TODO
 
 ## Phase 1: Project Setup
-- [ ] Create project folder `spotisync/`
-- [ ] Create `requirements.txt` with: `spotipy`, `ytmusicapi`, `python-dotenv`, `rich`
-- [ ] Run `pip install -r requirements.txt`
-- [ ] Create `.env` from `.env.example`
+- [x] Create project folder `spotisync/`
+- [x] Create `requirements.txt` with: `spotipy`, `ytmusicapi`, `python-dotenv`, `rich`
+- [x] Run `pip install -r requirements.txt`
+- [x] Create `.env` from `.env.example`
 
 ## Phase 2: Spotify Auth
 - [ ] Go to developer.spotify.com/dashboard
 - [ ] Create new app
 - [ ] Copy Client ID + Client Secret → `.env`
 - [ ] Add redirect URI in app settings:
-  - Type `http://localhost:8888/callback`
+  - Type `https://localhost:8888/callback`
   - Press **Enter** to confirm as a tag
   - Then click **Save**
-- [ ] Set in `.env`: `SPOTIFY_REDIRECT_URI=http://localhost:8888/callback`
+- [ ] Set in `.env`: `SPOTIFY_REDIRECT_URI=https://localhost:8888/callback`
 - [ ] Test auth by running spotipy with `user-library-read playlist-read-private` scope
 
 ## Phase 3: YT Music Auth
