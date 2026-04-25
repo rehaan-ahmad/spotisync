@@ -11,19 +11,18 @@
 - [ ] Save the CSV file as `spotify_export.csv` in the project root
 
 ## Phase 3: YT Music Auth
-- [ ] Run `ytmusicapi oauth`
-- [ ] Complete browser login flow
-- [ ] Confirm `oauth.json` saved in project root
+- [x] Run `ytmusicapi browser`
+- [x] Complete browser login flow
+- [x] Confirm `browser.json` saved in project root
 
 ## Phase 4: Parse Export (`parse_csv.py`)
-- [ ] Read `spotify_export.csv`
-- [ ] Extract `Track Name`, `Artist Name(s)`, `Album Name`
-- [ ] Return clean list of track objects
+- [x] Read `spotify_export.csv`
+- [x] Extract `Track Name`, `Artist Name(s)`, `Album Name`
+- [x] Return clean list of track objects
 
 ## Phase 5: YT Music Auth
-- [ ] Run `ytmusicapi oauth`
-- [ ] Complete browser login flow
-- [ ] Confirm `oauth.json` saved in project root
+- [x] Create `browser.json` from headers
+- [x] Verify authentication works
 
 ## Phase 6: Sync to YT Music (`ytmusic.py`)
 - [ ] Init YTMusic client with `oauth.json`
